@@ -1,0 +1,14 @@
+#https://github.com/AdityaSP/ora-jun2-dock
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-nginx
+  labels:
+    app: helloworld
+spec:
+  containers:
+  - name: nginx
+    image: nginx:alpine
+    ports:
+    - name: nginxport
+      containerPort: 80
