@@ -1,0 +1,9 @@
+FROM alpine_apache:1.4
+#RUN sed -i "s/Listen 80/Listen 8081/" /etc/apache2/httpd.conf
+ENV APACHE_PORT=80
+
+VOLUME /var/www/localhost/htdocs
+VOLUME /var/log/apache2
+
+CMD sed -i "s/Listen 80/Listen ${APACHE_PORT}/" /etc/apache2/httpd.conf && \
+    httpd -D FOREGROUND

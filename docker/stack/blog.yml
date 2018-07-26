@@ -1,0 +1,41 @@
+version: '2.1'
+services:
+  
+  ghost:
+    image: ghost:1-alpine
+    restart: always
+#    ports:
+#      - 8080:2368
+    environment:
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: root
+      database__connection__password: example
+      database__connection__database: ghost
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - ghost_db:/var/lib/mysql
+    healthcheck:
+      test: "mysql -uroot -pexample --execute \"show databases;\""
+      retries: 3
+      interval: 10s
+      
+  lb:
+    image: dockercloud/haproxy
+    links:
+      - ghost
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 9999:80
+    
+volumes:
+    ghost_db:

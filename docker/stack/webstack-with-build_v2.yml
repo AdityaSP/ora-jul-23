@@ -1,0 +1,6 @@
+version: '3.1'
+services:
+  web01:
+    build: code_stuff
+    ports:
+      - 8081:80
