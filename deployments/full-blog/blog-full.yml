@@ -26,7 +26,10 @@ spec:
         image: mysql:5.7
         env:
           - name: MYSQL_ROOT_PASSWORD
-            value: example
+            valueFrom:
+              secretKeyRef:
+                name: blog-secrets
+                key: db-password
         ports:
         - name: fullblogdbport
           containerPort: 3306
