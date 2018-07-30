@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: config-map-test
+spec:
+ containers:
+   - name: test-container
+     image: nginx:alpine
+     command: [ "/bin/sh", "-c", "env" ]
+     env:
+       # Define the environment variable
+       - name: SPECIAL_LEVEL_KEY
+         valueFrom:
+           configMapKeyRef:
+             # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+             name: mysql-config
+             # Specify the key associated with the value
+             key: MYSQL_ROOT_PASSWORD
