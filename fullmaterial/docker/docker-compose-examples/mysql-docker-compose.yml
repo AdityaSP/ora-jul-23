@@ -1,0 +1,15 @@
+version: '3.1'
+services:
+  web1:
+    image: nginx:alpine
+    ports:
+        - "9090:80"
+  myds:
+    image: mysql
+    environment:
+        MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+        - myvol:/var/lib/mysql
+        
+volumes:
+    myvol:

@@ -1,0 +1,7 @@
+FROM alpine:latest
+
+RUN mkdir /run/apache2 && apk update && apk add apache2
+
+EXPOSE 80
+ENTRYPOINT ["ping"]
+CMD ["www.google.com"]

@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: wp-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wp-blog
+    spec:
+      containers:
+      - name: wp
+        image: wordpress:4-php7.0
+        ports:
+        - name: wp-port
+          containerPort: 80
+        env:
+          - name: WORDPRESS_DB_PASSWORD
+            value:root
+          - name: WORDPRESS_DB_HOST
+            value: 127.0.0.1
+      - name: mysql
+        image: mysql:5.7
+        ports:
+        - name: db-port
+          containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: root

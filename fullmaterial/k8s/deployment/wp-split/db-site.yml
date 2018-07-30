@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: db-site-blog
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: db-site
+    spec:
+      containers:
+      - name: wp-db
+        image: mysql:5.7
+        ports:
+        - name: mysql-port
+          containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-site-blog-service
+spec:
+  ports:
+  - port: 3306
+    nodePort: 31012
+    targetPort: mysql-port
+    protocol: TCP
+  selector:
+    app: db-site
+  type: NodePort
+  
+  
+  
+  
+  
+  

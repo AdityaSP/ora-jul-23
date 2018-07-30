@@ -1,0 +1,5 @@
+FROM alpine:latest
+
+RUN mkdir /run/apache2 && apk update && apk add apache2
+
+CMD ["httpd", "-D", "FOREGROUND"]
